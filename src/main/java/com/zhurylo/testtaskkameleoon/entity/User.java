@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity(name = "users")
 @Builder
@@ -23,4 +24,6 @@ public class User {
     private String email;
     @Column(name = "date_of_creation")
     private LocalDateTime dateOfCreation;
+    @OneToMany(mappedBy = "user")
+    private Set<Quote> quotes;
 }

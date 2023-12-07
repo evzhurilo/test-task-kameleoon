@@ -32,12 +32,12 @@ public class QuoteService {
         repository.save(quote);
     }
 
-//    public Optional<Quote> findQuote(Integer id) throws QuoteNotFoundExcepiton {
-//        if (repository.findById(id).isEmpty()) {
-//            throw new QuoteNotFoundExcepiton();
-//        }
-//        return repository.findById(id);
-//    }
+    public Optional<Quote> findQuote(Integer id) throws QuoteNotFoundExcepiton {
+        if (repository.findById(id).isEmpty()) {
+            throw new QuoteNotFoundExcepiton();
+        }
+        return repository.findById(id);
+    }
 
     public void updateContent(Integer id, String content) throws QuoteNotFoundExcepiton {
         if (repository.findById(id).isEmpty()) {
@@ -52,7 +52,12 @@ public class QuoteService {
     }
 
     public Optional<Quote> getRandomQuote() {
-        return repository.findById(new Random().nextInt((int) repository.count() + 1));
+        return repository.findRandomQuote();
     }
-    
+
+    public List<Quote> getTenBestQuotes(){
+        return repository.findAll().stream()
+                .sorted((quote1, quote2) -> Integer.compare(quote2.getVotes()., quote1.getVotes().size()))
+    }
+
 }

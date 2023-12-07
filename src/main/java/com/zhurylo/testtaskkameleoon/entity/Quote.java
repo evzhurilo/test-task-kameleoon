@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity(name = "quote")
@@ -35,5 +36,5 @@ public class Quote {
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    Set<Vote> votes;
+    Set<Vote> votes = new HashSet<>();
 }

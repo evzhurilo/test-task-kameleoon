@@ -1,19 +1,13 @@
 package com.zhurylo.testtaskkameleoon.controller;
 
 import com.zhurylo.testtaskkameleoon.dto.QuoteDto;
-import com.zhurylo.testtaskkameleoon.entity.Quote;
 import com.zhurylo.testtaskkameleoon.exception.QuoteNotFoundExcepiton;
 import com.zhurylo.testtaskkameleoon.service.QuoteService;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/quotes")
@@ -39,15 +33,19 @@ public class QuoteController {
         }
     }
 
-    //TODO implement method
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteQuote(@PathVariable(name = "id") Integer id) {
         service.deleteQuote(id);
     }
 
-    //TODO implement method
-    public ResponseEntity<?> getRandomQuote(@RequestBody QuoteDto dto) {
-        return ResponseEntity.ok(dto);
+    @GetMapping()
+    public ResponseEntity<?> getTenWorstQuotes() {
+        return service.showWorstQuotes();
+    }
+
+    @GetMapping("/random")
+    public ResponseEntity<?> getRandomQuote() {
+        return ResponseEntity.status(HttpStatus.FOUND).body(service.getRandomQuote());
     }
 }

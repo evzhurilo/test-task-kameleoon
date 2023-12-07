@@ -17,9 +17,9 @@ import java.util.Set;
 public class Quote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "uuid", nullable = false, unique = true)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, unique = true)
+    private Integer id;
 
     @Column(name = "content", nullable = false)
     private String content;

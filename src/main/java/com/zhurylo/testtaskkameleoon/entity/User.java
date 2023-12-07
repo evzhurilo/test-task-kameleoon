@@ -18,12 +18,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "email")
     private String email;
+
     @Column(name = "date_of_creation")
     private LocalDateTime dateOfCreation;
+
     @OneToMany(mappedBy = "user")
     private Set<Quote> quotes;
 }

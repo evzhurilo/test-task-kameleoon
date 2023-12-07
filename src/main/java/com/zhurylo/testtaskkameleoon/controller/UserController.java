@@ -1,7 +1,7 @@
 package com.zhurylo.testtaskkameleoon.controller;
 
 import com.zhurylo.testtaskkameleoon.dto.UserDto;
-import com.zhurylo.testtaskkameleoon.exception.EmailAlreadyExists;
+import com.zhurylo.testtaskkameleoon.exception.EmailAlreadyExistsException;
 import com.zhurylo.testtaskkameleoon.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +22,8 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody UserDto dto) {
         try {
             userService.createUser(dto);
-        } catch (EmailAlreadyExists e) {
-            return ResponseEntity.badRequest().body(String.format("%s is already in use", dto.email()));
+        } catch (EmailAlreadyExistsException e) {
+            e.getMessage(String.format("User with email %s is already exists", dto.email()));
         }
         return ResponseEntity.ok(dto);
     }

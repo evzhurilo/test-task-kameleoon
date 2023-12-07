@@ -1,9 +1,14 @@
 package com.zhurylo.testtaskkameleoon.exception;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class QuoteNotFoundExcepiton extends Exception{
 
-    public String getMessage(String str){
-        return str;
+    private String message;
+
+    public String getMessage(){
+        return message;
 
     }
 }

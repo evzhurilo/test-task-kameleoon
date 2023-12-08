@@ -20,11 +20,8 @@ public class Vote {
     private Integer id;
 
     @Column(name = "type")
-//    @Enumerated(EnumType.STRING)
+   @Enumerated(EnumType.STRING)
     private VoteType type;
-
-    @Column(name = "counter")
-    private Integer counter;
 
     @ManyToOne
     private Quote quote;

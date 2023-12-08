@@ -34,19 +34,14 @@ public class QuoteService {
     //TODO solve problem with optional type of user in Builder of Quote
     @Transactional
     public void addQuote(QuoteDto dto, Integer id) {
-        Quote quote = Quote.builder()
-                .content(dto.content())
-                .creationDate(LocalDateTime.now())
-                .user(userRepository.findById(id).get())
-                .build();
-        quoteRepository.save(quote);
-    }
-
-    public Optional<Quote> findQuote(Integer id) throws QuoteNotFoundExcepiton {
-        if (quoteRepository.findById(id).isEmpty()) {
-            throw new QuoteNotFoundExcepiton("Quote not found");
+        if (userRepository.findById(id).isPresent()) {
+            Quote quote = Quote.builder()
+                    .content(dto.content())
+                    .creationDate(LocalDateTime.now())
+                    .user(userRepository.findById(id).get())
+                    .build();
+            quoteRepository.save(quote);
         }
-        return quoteRepository.findById(id);
     }
 
     public void updateContent(Integer id, String content) throws QuoteNotFoundExcepiton {
@@ -75,36 +70,16 @@ public class QuoteService {
     }
 
     public void makeVote(Integer id, String voteType) {
-        if (!voteRepository.existsVoteByQuote(quoteRepository.findById(id).get())) {
+        if (quoteRepository.findById(id).isPresent())
             switch (voteType) {
-                case "like" -> {
-                    voteRepository.save(Vote.builder()
-                            .quote(quoteRepository.findById(id).get())
-                            .counter(1)
-                            .type(VoteType.UPVOTE)
-                            .build());
-                    break;
-                }
-                case "dislike" ->
-                        voteRepository.save(Vote.builder()
-                                .quote(quoteRepository.findById(id).get())
-                                .counter(1)
-                                .type(VoteType.DOWNVOTE)
-                                .build());
+                case "like" -> voteRepository.save(Vote.builder()
+                        .quote(quoteRepository.findById(id).get())
+                        .type(VoteType.UPVOTE)
+                        .build());
+                case "dislike" -> voteRepository.save(Vote.builder()
+                        .quote(quoteRepository.findById(id).get())
+                        .type(VoteType.DOWNVOTE)
+                        .build());
             }
-        }
-        if (quoteRepository.findById(id).isPresent() && voteRepository.existsVoteByQuote(quoteRepository.findById(id).get())) {
-            switch (voteType) {
-                case "like" -> quoteRepository.findById(id).get().getVotes().stream()
-                        .filter(v -> v.getType() == VoteType.UPVOTE)
-                        .findFirst()
-                        .ifPresent(v -> v.setCounter(v.getCounter() + 1));
-                case "dislike" -> quoteRepository.findById(id).get().getVotes().stream()
-                        .filter(v -> v.getType() == VoteType.DOWNVOTE)
-                        .findFirst()
-                        .ifPresent(v -> v.setCounter(v.getCounter() + 1));
-            }
-            quoteRepository.save(quoteRepository.findById(id).get());
-        }
     }
 }

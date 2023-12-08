@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -73,10 +74,17 @@ public class QuoteController {
         }
     }
 
-//    @GetMapping()
-//    public ResponseEntity<?> getTenWorstQuotes() {
-//        return service.showTenWorstQuotes();
-//    }
+    @GetMapping("/worst")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Quote> getTenWorstQuotes() {
+        return service.getTenWorstQuotes();
+    }
+
+    @GetMapping("/best")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Quote> getTenBestQuotes() {
+        return service.getTenBestQuotes();
+    }
 
     @GetMapping("/random")
     public ResponseEntity<?> getRandomQuote() {

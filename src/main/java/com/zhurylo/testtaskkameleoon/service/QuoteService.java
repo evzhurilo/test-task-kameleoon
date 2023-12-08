@@ -2,10 +2,8 @@ package com.zhurylo.testtaskkameleoon.service;
 
 import com.zhurylo.testtaskkameleoon.dto.QuoteDto;
 import com.zhurylo.testtaskkameleoon.entity.Quote;
-import com.zhurylo.testtaskkameleoon.enums.VoteType;
 import com.zhurylo.testtaskkameleoon.exception.QuoteNotFoundExcepiton;
 import com.zhurylo.testtaskkameleoon.repository.QuoteRepository;
-import com.zhurylo.testtaskkameleoon.repository.VoteRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,6 @@ public class QuoteService {
 
     @NonNull
     private final QuoteRepository quoteRepository;
-
-    @NonNull
-    private final VoteRepository voteRepository;
 
     @Transactional
     public void addQuote(QuoteDto dto) {
@@ -57,11 +52,14 @@ public class QuoteService {
     public Optional<Quote> getRandomQuote() {
         return quoteRepository.findRandomQuote();
     }
-//TODO implement method
 
-//    public List<Quote> getTenBestQuotes(){
-//        return quoteRepository.findAll().stream()
-//                .sorted(q-> voteRepository.findByType(VoteType.UPVOTE.toString()));
-//    }
+    //TODO implement method
+    public List<Quote> getTenBestQuotes() {
+        return quoteRepository.findTop10QuotesByRating();
+    }
+
+    public List<Quote> getTenWorstQuotes() {
+        return quoteRepository.findWorst10QuotesByRating();
+    }
 
 }

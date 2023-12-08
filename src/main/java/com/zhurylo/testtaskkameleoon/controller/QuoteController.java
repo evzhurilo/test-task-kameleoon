@@ -23,10 +23,10 @@ public class QuoteController {
 
     private final QuoteService service;
 
-    @PostMapping("/create")
+    @PostMapping("/create/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createQuote(@RequestBody QuoteDto dto) {
-        service.addQuote(dto);
+    public void createQuote(@PathVariable(name = "userId") Integer id, @RequestBody QuoteDto dto) {
+        service.addQuote(dto, id);
     }
 
     //TODO implement method
@@ -50,28 +50,7 @@ public class QuoteController {
     @PostMapping("/{id}/{vote-type}")
     @ResponseStatus(HttpStatus.OK)
     public void makeVote(@PathVariable(name = "id") Integer id, @PathVariable(name = "vote-type") String voteType) {
-        try {
-            Optional<Quote> quoteOptional = service.findQuote(id);
-
-            if (quoteOptional.isPresent()) {
-                Quote quote = quoteOptional.get();
-
-                switch (voteType) {
-                    case "like" -> quote.getVotes().stream()
-                            .filter(v -> v.getType().equals(VoteType.UPVOTE))
-                            .findFirst()
-                            .ifPresent(v -> v.setCounter(v.getCounter() + 1));
-                    case "dislike" -> quote.getVotes().stream()
-                            .filter(v -> v.getType().equals(VoteType.DOWNVOTE))
-                            .findFirst()
-                            .ifPresent(v -> v.setCounter(v.getCounter() + 1));
-                }
-            } else {
-                throw new QuoteNotFoundExcepiton("Quote not found");
-            }
-        } catch (QuoteNotFoundExcepiton e) {
-            log.error("Quote not found", e);
-        }
+        service.makeVote(id, voteType);
     }
 
     @GetMapping("/worst")

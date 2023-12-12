@@ -4,6 +4,7 @@ import com.zhurylo.testtaskkameleoon.dto.UserDto;
 import com.zhurylo.testtaskkameleoon.exception.EmailAlreadyExistsException;
 import com.zhurylo.testtaskkameleoon.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor(onConstructor = @__({@Autowired}))
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -23,7 +25,7 @@ public class UserController {
         try {
             userService.createUser(dto);
         } catch (EmailAlreadyExistsException e) {
-            e.getMessage(String.format("User with email %s is already exists", dto.email()));
+            log.error(String.format("%s already exists", dto.email()));
         }
         return ResponseEntity.ok(dto);
     }

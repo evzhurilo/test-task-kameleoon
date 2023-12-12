@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: evgenij_zhurilo
+      changes:
+        - sqlFile:
+            path: db.changelog/changesets/1--create_tables.sql
+  - changeSet:
+      id: 2
+      author: evgenij_zhurilo
+      changes:
+        - sqlFile:
+            path: db.changelog/changesets/2--insert_data_to_users.sql
+  - changeSet:
+      id: 3
+      author: evgenij_zhurilo
+      changes:
+        - sqlFile:
+            path: db.changelog/changesets/3--insert_data_to_quotes.sql
+
+

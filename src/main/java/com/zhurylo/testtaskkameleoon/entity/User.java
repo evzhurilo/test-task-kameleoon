@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Entity(name = "users")
+@Entity(name = "profiles")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

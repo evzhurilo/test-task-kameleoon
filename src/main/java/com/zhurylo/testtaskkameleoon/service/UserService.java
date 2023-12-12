@@ -22,7 +22,7 @@ public class UserService {
     @Transactional
     public void createUser(UserDto dto) throws EmailAlreadyExistsException {
         if (repository.findByEmail(dto.email()).isPresent()) {
-            throw new EmailAlreadyExistsException();
+            throw new EmailAlreadyExistsException("Email not found");
         }
         User newUser = User.builder()
                 .name(dto.name())

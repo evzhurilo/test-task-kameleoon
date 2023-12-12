@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "quote")
+@Entity(name = "quotes")
 @Builder
 @Data
 @AllArgsConstructor

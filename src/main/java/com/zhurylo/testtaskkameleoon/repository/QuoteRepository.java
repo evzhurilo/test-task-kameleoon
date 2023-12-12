@@ -11,23 +11,23 @@ public interface QuoteRepository extends JpaRepository<Quote, Integer> {
 
     Optional<Quote> findById(Integer id);
 
-    @Query(value = "SELECT * FROM quote ORDER BY RAND() LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM quotes ORDER BY RAND() LIMIT 1", nativeQuery = true)
     Optional<Quote> findRandomQuote();
 
     @Query(value = "SELECT q.* " +
-            "FROM quote q " +
+            "FROM quotes q " +
             "ORDER BY (SELECT COALESCE(SUM(CASE WHEN v.type = 'UPVOTE' THEN 1 ELSE 0 END), 0) - " +
             "COALESCE(SUM(CASE WHEN v.type = 'DOWNVOTE' THEN 1 ELSE 0 END), 0) " +
-            "FROM vote v WHERE v.quote_id = q.id) DESC " +
+            "FROM votes v WHERE v.quote_id = q.id) DESC " +
             "LIMIT 10",
             nativeQuery = true)
     List<Quote> findTop10QuotesByRating();
 
     @Query(value = "SELECT q.* " +
-            "FROM quote q " +
+            "FROM quotes q " +
             "ORDER BY (SELECT COALESCE(SUM(CASE WHEN v.type = 'UPVOTE' THEN 1 ELSE 0 END), 0) - " +
             "COALESCE(SUM(CASE WHEN v.type = 'DOWNVOTE' THEN 1 ELSE 0 END), 0) " +
-            "FROM vote v WHERE v.quote_id = q.id) ASC " +
+            "FROM votes v WHERE v.quote_id = q.id) ASC " +
             "LIMIT 10",
             nativeQuery = true)
     List<Quote> findWorst10QuotesByRating();

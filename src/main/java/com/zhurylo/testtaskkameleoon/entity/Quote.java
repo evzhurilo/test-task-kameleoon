@@ -18,7 +18,8 @@ import java.util.Set;
 public class Quote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @SequenceGenerator(name = "seq", initialValue = 36, sequenceName = "quotes_seq")
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 

@@ -26,4 +26,6 @@ spring:
     check-template: true
     prefix: classpath:/templates/
     check-template-location: true
+    enabled: true
+    suffix: .html
 

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping("/api/v1/main")
+@RequestMapping("/api/v1/home")
 public class MainController {
 
-    @GetMapping("/page")
+    @GetMapping()
     public ModelAndView getMainPage() {
         ModelAndView modelAndView = new ModelAndView("main-page");
         return modelAndView;

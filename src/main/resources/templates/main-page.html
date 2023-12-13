@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hi Jack</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <!-- Add links to your CSS stylesheets if needed -->
+    <!-- <link rel="stylesheet" th:href="@{/styles.css}"> -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        nav ul {
+            display: flex;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav li {
+            margin-right: 15px;
+        }
+
+        form {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+    </style>
 </head>
 <body>
-<a>Hi Jack!</a>
+
+<nav>
+    <ul>
+        <li><a href="#">Profile</a></li>
+        <li><a href="/api/v1/quotes/best">Top 10</a></li>
+        <li><a href="/api/v1/quotes/worst">Flop 10</a></li>
+        <li><a href="#">Last</a></li>
+    </ul>
+</nav>
+
+<!--Necessary to solve the problem with ui of a random quote-->
+<!--<section>-->
+<!--    <h2>Random Quote</h2>-->
+<!--    &lt;!&ndash; Display your random quote here &ndash;&gt;-->
+<!--    <a th:href="@{/api/v1/quotes/random}" th:text="${randomQuote.id}">Random Quote Text Goes Here</a>-->
+<!--    <p th:text="${randomQuote.author}">Author Goes Here</p>-->
+<!--</section>-->
+
+<section>
+    <h2>All Quotes</h2>
+
+    <form>
+        <label for="login">Login:</label>
+        <input type="text" id="login" name="login" th:value="${loginValue}">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password">
+
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Display all quotes with like and dislike buttons -->
+    <div class="quote" th:each="quote : ${allQuotes}">
+        <p th:text="${quote.text}">Quote text goes here</p>
+        <button class="like">+</button>
+        <button class="dislike">-</button>
+    </div>
+
+</section>
+
+<!-- Add links to your JavaScript files if needed -->
+<!-- <script th:src="@{/script.js}"></script> -->
+
 </body>
 </html>

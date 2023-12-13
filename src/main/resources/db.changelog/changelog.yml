@@ -17,5 +17,11 @@ databaseChangeLog:
       changes:
         - sqlFile:
             path: db.changelog/changesets/3--insert_data_to_quotes.sql
-
+#  - changeSet:
+#      id: 4
+#      author: evgenij_zhurilo
+#      changes:
+#        - sqlFile:
+#            path: db.changelog/changesets/4--change_autoincrements_for_tables.sql
+#
 

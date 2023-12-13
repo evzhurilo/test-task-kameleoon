@@ -4,7 +4,7 @@ spring:
   h2:
     console:
       enabled: true
-      path: /h2/database
+      path: /h2
   liquibase:
     change-log: classpath:db.changelog/changelog.yml
     enabled: true
@@ -19,7 +19,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    open-in-view: true
     show-sql: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+  thymeleaf:
+    check-template: true
+    prefix: classpath:/templates/
+    check-template-location: true
+

@@ -21,6 +21,7 @@ spring:
       ddl-auto: update
     open-in-view: true
     show-sql: true
+    generate-ddl: false
   thymeleaf:
     check-template: true
     prefix: classpath:/templates/
